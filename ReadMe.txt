@@ -11,7 +11,7 @@ Naming a branch
 	- Point to consider is, branch name should be issue number followed by issue name.
 	- E.g : #issueNumber-issueName
 
-Creating a PR
+Creating a Pull Request
 	- Developed pull request should target none other than dev branch
 	- Pull request name should be same as issue name
 	- E.g (PullRequestName) : #issueNumber-issueName
