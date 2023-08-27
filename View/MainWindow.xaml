@@ -5,8 +5,113 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VelocityCalculator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Velocity Calculator" Height="450" Width="800">
+
+    <Window.Resources>
+
+        <Style x:Key="CustomLblHeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Foreground" Value="Firebrick"/>
+            <Setter Property="Margin" Value="10 3 10 10"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="StdTxtBoxDimensionsStyle" TargetType="TextBox">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="150"/>
+        </Style>
+
+        <Style x:Key="CustomTxtBoxDisplayStyle" TargetType="TextBox" BasedOn="{StaticResource StdTxtBoxDimensionsStyle}">
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="Foreground" Value="Firebrick"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="40 3 10 10"/>
+        </Style>
+
+        <Style x:Key="customCheckBoxStyle" TargetType="CheckBox">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="10 3 10 10"/>
+            <Setter Property="Foreground" Value="Firebrick"/>
+        </Style>
+
+        <Style x:Key="OutputTxtBlkStyle" TargetType="TextBlock" BasedOn="{StaticResource CustomLblHeaderStyle}">
+            <Setter Property="Foreground" Value="Orange"/>
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="FontStyle" Value="Oblique"/>
+        </Style>
+        
+    </Window.Resources>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.7*"/>
+            <ColumnDefinition  />
+        </Grid.ColumnDefinitions>
+
+
+        <TextBlock Grid.Row="0" Grid.Column="0"
+                   Text="Number of Members  "
+                   Style="{StaticResource CustomLblHeaderStyle}"/>
+
+        <TextBox Grid.Row="0" Grid.Column="1"
+                Text="1"
+                Style="{StaticResource CustomTxtBoxDisplayStyle}"/>
+
+        <TextBlock  Grid.Row="1" Grid.Column="0"
+                    Text="Company Holidays  " 
+                    Style="{StaticResource CustomLblHeaderStyle}"/>
+
+        <TextBox Grid.Row="1" Grid.Column="1"
+                Text="2"
+                Style="{StaticResource CustomTxtBoxDisplayStyle}"/>
+
+        <TextBlock Grid.Row="2" Grid.Column="0"
+                    Text="Total team members plan leaves  "
+                    Style="{StaticResource CustomLblHeaderStyle}"/>
+
+        <TextBox Grid.Row="2" Grid.Column="1"
+                Text="3"
+                Style="{StaticResource CustomTxtBoxDisplayStyle}"/>
+
+        <TextBlock  Grid.Row="3" Grid.Column="0"
+                    Text="Sprint days  "
+                    Style="{StaticResource CustomLblHeaderStyle}"/>
+
+        <TextBox Grid.Row="3" Grid.Column="1"
+                 Text="4"
+                 Style="{StaticResource CustomTxtBoxDisplayStyle}"/>
+
+        <TextBlock Grid.Row="4" Grid.Column="0"
+                    Text="Total working days for this sprint  "
+                    Style="{StaticResource CustomLblHeaderStyle}"/>
+
+        <TextBox Grid.Row="4" Grid.Column="1"
+                 Text="5"
+                 IsReadOnly="True"
+                 IsTabStop="True"
+                 ToolTip="Calculated Automatically"
+                 Style="{StaticResource CustomTxtBoxDisplayStyle}"/>
+
+        <CheckBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
+                         Content="Saturday and Sunday weekend ?"
+                         IsChecked="False"
+                         Style="{StaticResource customCheckBoxStyle}"/>
+
+        <StackPanel Margin="0 20 0 0" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <TextBlock 
+                   Text="Total available capacity - "
+                   Style="{StaticResource OutputTxtBlkStyle}"/>
+        </StackPanel>
+        
 
     </Grid>
 </Window>
