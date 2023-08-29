@@ -3,11 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:VelocityCalculator.ViewModel"
+        xmlns:converters="clr-namespace:VelocityCalculator.Converter"
         xmlns:local="clr-namespace:VelocityCalculator"
         mc:Ignorable="d"
         Title="Velocity Calculator" Height="450" Width="800">
 
     <Window.Resources>
+        <vm:VelocityCalculatorViewModel x:Key="viewModel"/>
+
+        <converters:IntToStringConverter x:Key="IntToStringConverter"/>
 
         <Style x:Key="CustomLblHeaderStyle" TargetType="TextBlock">
             <Setter Property="FontSize" Value="18"/>
@@ -41,7 +46,7 @@
         </Style>
         
     </Window.Resources>
-    <Grid Margin="20">
+    <Grid Margin="20" DataContext="{StaticResource viewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -63,7 +68,8 @@
                    Style="{StaticResource CustomLblHeaderStyle}"/>
 
         <TextBox Grid.Row="0" Grid.Column="1"
-                Text="1"
+                Text="{Binding VelocityCalculatorVM.NumberOfMembers, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay,Converter=
+            {StaticResource IntToStringConverter}}"
                 Style="{StaticResource CustomTxtBoxDisplayStyle}"/>
 
         <TextBlock  Grid.Row="1" Grid.Column="0"
@@ -71,7 +77,8 @@
                     Style="{StaticResource CustomLblHeaderStyle}"/>
 
         <TextBox Grid.Row="1" Grid.Column="1"
-                Text="2"
+                Text="{Binding VelocityCalculatorVM.CompnayHolidays,
+            UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource IntToStringConverter}}"
                 Style="{StaticResource CustomTxtBoxDisplayStyle}"/>
 
         <TextBlock Grid.Row="2" Grid.Column="0"
@@ -79,7 +86,8 @@
                     Style="{StaticResource CustomLblHeaderStyle}"/>
 
         <TextBox Grid.Row="2" Grid.Column="1"
-                Text="3"
+                Text="{Binding VelocityCalculatorVM.TotalLeaves, UpdateSourceTrigger=PropertyChanged,
+            Mode=TwoWay, Converter={StaticResource IntToStringConverter}}"
                 Style="{StaticResource CustomTxtBoxDisplayStyle}"/>
 
         <TextBlock  Grid.Row="3" Grid.Column="0"
@@ -87,7 +95,8 @@
                     Style="{StaticResource CustomLblHeaderStyle}"/>
 
         <TextBox Grid.Row="3" Grid.Column="1"
-                 Text="4"
+                 Text="{Binding VelocityCalculatorVM.TotalSprintDays,
+            UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource IntToStringConverter}}"
                  Style="{StaticResource CustomTxtBoxDisplayStyle}"/>
 
         <TextBlock Grid.Row="4" Grid.Column="0"
@@ -95,7 +104,8 @@
                     Style="{StaticResource CustomLblHeaderStyle}"/>
 
         <TextBox Grid.Row="4" Grid.Column="1"
-                 Text="5"
+                 Text="{Binding VelocityCalculatorVM.TotalWorkingDays, UpdateSourceTrigger=PropertyChanged,
+            Mode = TwoWay, Converter={StaticResource IntToStringConverter}}"
                  IsReadOnly="True"
                  IsTabStop="True"
                  ToolTip="Calculated Automatically"
@@ -103,7 +113,7 @@
 
         <CheckBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
                          Content="Saturday and Sunday weekend ?"
-                         IsChecked="False"
+                         IsChecked="{Binding VelocityCalculatorVM.IsSatSunOff}"
                          Style="{StaticResource customCheckBoxStyle}"/>
 
         <StackPanel Margin="0 20 0 0" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
@@ -111,7 +121,5 @@
                    Text="Total available capacity - "
                    Style="{StaticResource OutputTxtBlkStyle}"/>
         </StackPanel>
-        
-
     </Grid>
 </Window>
