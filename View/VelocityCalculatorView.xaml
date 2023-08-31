@@ -131,6 +131,5 @@
                    Text="Total available capacity - "
                    Style="{StaticResource OutputTxtBlkStyle}"/>
         </StackPanel>
-        
     </Grid>
 </Window>
