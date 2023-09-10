@@ -1,0 +1,138 @@
+﻿<Window x:Class="VelocityCalculator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:VelocityCalculator.ViewModel"
+        xmlns:converters="clr-namespace:VelocityCalculator.Converter"
+        xmlns:local="clr-namespace:VelocityCalculator"
+        mc:Ignorable="d"
+        Title="Velocity Calculator" Height="450" Width="800">
+
+    <Window.Resources>
+        <vm:VelocityCalculatorViewModel x:Key="viewModel"/>
+
+        <converters:IntToStringConverter x:Key="IntToStringConverter"/>
+
+        <Style x:Key="CustomLblHeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Margin" Value="10 3 10 10"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="ValidateTextBoxStyle" TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="Foreground" Value="Red"/>
+                    <Setter Property="ToolTip" Value="Invalid inputs, only numeric values are allowed"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="StdTxtBoxDimensionsStyle" TargetType="TextBox" BasedOn="{StaticResource ValidateTextBoxStyle}">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="150"/>
+        </Style>
+
+
+
+        <Style x:Key="CustomTxtBoxDisplayStyle" TargetType="TextBox" BasedOn="{StaticResource StdTxtBoxDimensionsStyle}">
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="Background" Value="AliceBlue"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="40 3 10 10"/>
+        </Style>
+
+        <Style x:Key="customCheckBoxStyle" TargetType="CheckBox">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="10 3 10 10"/>
+        </Style>
+
+        <Style x:Key="OutputTxtBlkStyle" TargetType="TextBlock" BasedOn="{StaticResource CustomLblHeaderStyle}">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Heavy"/>
+        </Style>
+
+    </Window.Resources>
+    <Border Background="Azure">
+        <Grid Margin="20" DataContext="{StaticResource viewModel}" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.7*"/>
+                <ColumnDefinition  />
+            </Grid.ColumnDefinitions>
+
+
+            <TextBlock Grid.Row="0" Grid.Column="0"
+                   Text="Number of Members  "
+                   Style="{StaticResource CustomLblHeaderStyle}"/>
+
+            <TextBox Grid.Row="0" Grid.Column="1"
+                Text="{Binding VelocityCalculatorVM.NumberOfMembers, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay,Converter=
+            {StaticResource IntToStringConverter}}"
+                Style="{StaticResource CustomTxtBoxDisplayStyle}"/>
+
+            <TextBlock  Grid.Row="1" Grid.Column="0"
+                    Text="Company Holidays  " 
+                    Style="{StaticResource CustomLblHeaderStyle}"/>
+
+            <TextBox Grid.Row="1" Grid.Column="1"
+                Text="{Binding VelocityCalculatorVM.CompnayHolidays,
+            UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource IntToStringConverter}}"
+                Style="{StaticResource CustomTxtBoxDisplayStyle}"/>
+
+            <TextBlock Grid.Row="2" Grid.Column="0"
+                    Text="Total team members leaves  "
+                    Style="{StaticResource CustomLblHeaderStyle}"/>
+
+            <TextBox Grid.Row="2" Grid.Column="1"
+                Text="{Binding VelocityCalculatorVM.TotalLeaves, UpdateSourceTrigger=PropertyChanged,
+            Mode=TwoWay, Converter={StaticResource IntToStringConverter}}"
+                Style="{StaticResource CustomTxtBoxDisplayStyle}"/>
+
+            <TextBlock  Grid.Row="3" Grid.Column="0"
+                    Text="Sprint Weeks  "
+                    Style="{StaticResource CustomLblHeaderStyle}"/>
+
+            <TextBox Grid.Row="3" Grid.Column="1"
+                 Text="{Binding VelocityCalculatorVM.SprintWeeks,
+            UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource IntToStringConverter}}"
+                 Style="{StaticResource CustomTxtBoxDisplayStyle}"/>
+
+            <TextBlock Grid.Row="4" Grid.Column="0"
+                    Text="Total working days for this sprint  "
+                    Style="{StaticResource CustomLblHeaderStyle}"/>
+
+            <TextBox Grid.Row="4" Grid.Column="1"
+                 Text="{Binding VelocityCalculatorVM.TotalWorkingDays, UpdateSourceTrigger=PropertyChanged,
+            Mode = TwoWay, Converter={StaticResource IntToStringConverter}}"
+                 IsReadOnly="True"
+                 IsTabStop="True"
+                 ToolTip="Calculated Automatically"
+                 Style="{StaticResource CustomTxtBoxDisplayStyle}"/>
+
+            <CheckBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
+                         Content="Saturday and Sunday weekend ?"
+                         IsChecked="{Binding VelocityCalculatorVM.IsSatSunOff}"
+                         Style="{StaticResource customCheckBoxStyle}"/>
+
+            <StackPanel Margin="0 20 0 0" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+                <TextBlock 
+                   Text="Estimated Capacity"
+                   Style="{StaticResource OutputTxtBlkStyle}"/>
+                <TextBlock Text=" : " Style="{StaticResource OutputTxtBlkStyle}"/>
+                <TextBlock Text="{Binding VelocityCalculatorVM.TotalEstimatedCapacityPercentage}" Style="{StaticResource OutputTxtBlkStyle}"/>
+                <TextBlock Text="%" Style="{StaticResource OutputTxtBlkStyle}"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>
