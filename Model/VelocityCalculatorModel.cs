@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace VelocityCalculator.Model
 {
@@ -7,7 +8,8 @@ namespace VelocityCalculator.Model
         private int m_numberOfMembers;
         private int m_comapanyHolidays;
         private int m_totalLeaves;
-        private int m_totalSprintDays;
+        private int m_sprintWeekDuration;
+        private bool m_isSatSunOff;
 
         public int NumberOfMembers
         {
@@ -18,6 +20,7 @@ namespace VelocityCalculator.Model
             set
             {
                 m_numberOfMembers = value;
+                CalculateTotalWorkingDays();
             }
         }
 
@@ -25,11 +28,12 @@ namespace VelocityCalculator.Model
         {
             get
             {
-                return m_numberOfMembers;
+                return m_comapanyHolidays;
             }
             set
             {
-                m_numberOfMembers = value;
+                m_comapanyHolidays = value;
+                CalculateTotalWorkingDays();
             }
         }
 
@@ -37,29 +41,48 @@ namespace VelocityCalculator.Model
         {
             get
             {
-                return m_numberOfMembers;
+                return m_totalLeaves;
             }
             set
             {
-                m_numberOfMembers = value;
+                m_totalLeaves = value;
+                CalculateTotalWorkingDays();
             }
         }
 
-        public int TotalSprintDays
+        public int SprintWeeks
         {
             get
             {
-                return m_numberOfMembers;
+                return m_sprintWeekDuration;
             }
             set
             {
-                m_numberOfMembers = value;
+                if (value > 0)
+                {
+                    m_sprintWeekDuration = value;
+                    CalculateTotalWorkingDays();
+                }
             }
         }
 
+
         public int TotalWorkingDays { get; set; }
 
-        public bool IsSatSunOff { get; set; }
+        public bool IsSatSunOff
+        {
+            get
+            {
+                return m_isSatSunOff;
+            }
+            set
+            {
+                m_isSatSunOff = value;
+                CalculateTotalWorkingDays();
+            }
+        }
+
+        public double TotalEstimatedCapacityPercentage { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -69,6 +92,26 @@ namespace VelocityCalculator.Model
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
+        }
+
+        private void CalculateTotalWorkingDays()
+        {
+            if (SprintWeeks > 0)
+            {
+                var totalSprintDays = (SprintWeeks * 7) - CompnayHolidays;
+                totalSprintDays = IsSatSunOff ? totalSprintDays -= (SprintWeeks * 2) : totalSprintDays;
+                totalSprintDays *= NumberOfMembers;
+                TotalWorkingDays = totalSprintDays;
+                RaisePropertyChanged(nameof(TotalWorkingDays));
+                CalculateTotalCapacity();
+            }
+        }
+
+        private void CalculateTotalCapacity()
+        {
+            var estimatedCapacity = ((double)(TotalWorkingDays - TotalLeaves) / TotalWorkingDays);
+            TotalEstimatedCapacityPercentage = Math.Ceiling(estimatedCapacity * 100.00);
+            RaisePropertyChanged(nameof(TotalEstimatedCapacityPercentage));
         }
     }
 }

@@ -90,8 +90,8 @@
             UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource IntToStringConverter}}"
                 Style="{StaticResource CustomTxtBoxDisplayStyle}"/>
 
-            <TextBlock Grid.Row="2" Grid.Column="0"
-                    Text="Total team members plan leaves  "
+        <TextBlock Grid.Row="2" Grid.Column="0"
+                    Text="Total team members leaves  "
                     Style="{StaticResource CustomLblHeaderStyle}"/>
 
             <TextBox Grid.Row="2" Grid.Column="1"
@@ -99,12 +99,12 @@
             Mode=TwoWay, Converter={StaticResource IntToStringConverter}}"
                 Style="{StaticResource CustomTxtBoxDisplayStyle}"/>
 
-            <TextBlock  Grid.Row="3" Grid.Column="0"
-                    Text="Sprint days  "
+        <TextBlock  Grid.Row="3" Grid.Column="0"
+                    Text="Sprint Weeks  "
                     Style="{StaticResource CustomLblHeaderStyle}"/>
 
-            <TextBox Grid.Row="3" Grid.Column="1"
-                 Text="{Binding VelocityCalculatorVM.TotalSprintDays,
+        <TextBox Grid.Row="3" Grid.Column="1"
+                 Text="{Binding VelocityCalculatorVM.SprintWeeks,
             UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource IntToStringConverter}}"
                  Style="{StaticResource CustomTxtBoxDisplayStyle}"/>
 
@@ -125,12 +125,13 @@
                          IsChecked="{Binding VelocityCalculatorVM.IsSatSunOff}"
                          Style="{StaticResource customCheckBoxStyle}"/>
 
-            <StackPanel Margin="0 20 0 0" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
-                <TextBlock 
-                   Text="Total available capacity - "
+        <StackPanel Margin="0 20 0 0" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <TextBlock 
+                   Text="Estimated Capacity"
                    Style="{StaticResource OutputTxtBlkStyle}"/>
-            </StackPanel>
-           
-        </Grid>
-    </Border>
+            <TextBlock Text=" : " Style="{StaticResource OutputTxtBlkStyle}"/>
+            <TextBlock Text="{Binding VelocityCalculatorVM.TotalEstimatedCapacityPercentage}" Style="{StaticResource OutputTxtBlkStyle}"/>
+            <TextBlock Text="%" Style="{StaticResource OutputTxtBlkStyle}"/>
+        </StackPanel>
+    </Grid>
 </Window>
