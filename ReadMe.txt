@@ -1,5 +1,5 @@
 Problem statement of the project
-	Create a project which will calculate team's velocity for the specified sprint.
+	Create a project which will calculate team's capacity for the specified sprint.
 
 Branching Strategy
 	- we will be having master and dev branches as deafult branches.
@@ -12,6 +12,5 @@ Naming a branch
 	- E.g : #issueNumber-issueName
 
 Creating a Pull Request
-	- Developed pull request should target none other than dev branch
 	- Pull request name should be same as issue name
 	- E.g (PullRequestName) : #issueNumber-issueName
